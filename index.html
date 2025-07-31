@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For My Muh Luv - Special</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+      background-size: 800% 800%;
+      animation: gradientBG 15s ease infinite;
+      color: #333;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+    @keyframes floatHearts {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+    .heart, .flower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: floatHearts linear infinite;
+      opacity: 0;
+    }
+    .flower {
+      background-image: url('https://i.ibb.co/YRPKr4s/flower.png');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      animation-duration: 15s !important;
+    }
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .intro, .main {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .intro.active, .main.active {
+      display: flex;
+      animation: fadeIn 2s ease-in-out;
+      flex-wrap: wrap;
+    }
+    h1, h2 {
+      color: #fff;
+      text-shadow: 0 0 10px #cc0066;
+    }
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    p, li {
+      color: #fff0f5;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      max-width: 600px;
+      margin: 0.5rem auto;
+    }
+    ul.timeline {
+      list-style: none;
+      text-align: left;
+      max-width: 700px;
+      margin: 2rem auto 3rem auto;
+      padding-left: 1rem;
+      color: #cc0066;
+      font-weight: 600;
+      border-left: 3px solid #cc0066;
+    }
+    ul.timeline li {
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-left: 1rem;
+    }
+    ul.timeline li::before {
+      content: '💖';
+      position: absolute;
+      left: -2.3rem;
+      top: 0;
+      font-size: 1.3rem;
+      color: #ff4d94;
+    }
+    .start-btn {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      background: #cc0066;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .start-btn:hover {
+      transform: scale(1.05);
+    }
+    .message-box {
+      background: #ffe6f2;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+      margin: 2rem auto 3rem auto;
+      color: #800040;
+      text-shadow: 0 0 3px #fff;
+      max-width: 700px;
+      white-space: pre-wrap;
+      text-align: left;
+      line-height: 1.6;
+      min-height: 120px;
+    }
+    #typingMsg { white-space: pre-wrap; }
+    .countdown {
+      font-size: 1.3rem;
+      margin: 1rem 0 2rem 0;
+      color: #cc0066;
+      font-weight: 700;
+      width: 100%;
+      max-width: 700px;
+    }
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      object-fit: cover;
+    }
+    @media (max-width: 500px) {
+      .gallery img {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro active" id="intro">
+    <h1>HAPPY GIRLFRIEND'S DAY BABE 💖</h1>
+    <p>I thought... why not be a little unique for my princess 👑<br>Something made just for you and only you 💌</p>
+    <button class="start-btn" onclick="showMainPage()">Start</button>
+  </div>
+
+  <div class="main" id="mainPage">
+    <h2>To: Tia (Muh Luvv) 💞🥺</h2>
+    <div class="countdown" id="countdown">
+      Together since: <span id="date-count"></span>
+    </div>
+    <div class="gallery">
+      <img src="1000037323.jpg" alt="Sweet moment" />
+      <img src="1000037344.jpg" alt="Cute us" />
+      <img src="1000037326.jpg" alt="Love vibes" />
+    </div>
+    <button class="start-btn" id="revealBtn">Tap here sweetheart 💌</button>
+    <div class="message-box" id="typingMsg"></div>
+    <h2>Our Love Timeline 💖</h2>
+    <ul class="timeline">
+      <li><strong>First ever call:</strong> The day before Christmas we were both drunk; I was in the west.</li>
+      <li>Seeing you in person for the first time near canteen</li>
+      <li>We've never genuinely fought before because we end up making fun of the situation.</li>
+      <li>Nearly <strong>5 months</strong> of our relationship, and <strong>9 months</strong> of being best friends.</li>
+      <li>Our month anniversary is on the <strong>13th</strong>.</li>
+      <li>And yeah we wouldn’t be together if the first <em>'I love you'</em> wasn’t from your side on 13th March.</li>
+      <li>Me confessing to your mum about our relationship on 28th March.</li>
+      <li>First kiss on 21st April and not even seeing the movie 😭.</li>
+      <li><strong>Tia, every moment with you has stayed with me like a warm memory I never want to let go of. I just hope this all leads to something truly beautiful.</strong></li>
+      <li style="color:#cc0066; font-size: 1.3rem; margin-top: 2rem;">I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖</li>
+    </ul>
+  </div>
+
+ <script>
+  // Create only floating hearts (removed flowers)
+  for (let i = 0; i < 25; i++) {
+    const el = document.createElement('div');
+    el.className = 'heart';
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.top = Math.random() * 100 + 'vh';
+    el.style.animationDuration = Math.random() * 10 + 5 + 's';
+    el.style.animationDelay = Math.random() * 10 + 's';
+    el.style.opacity = 0.8;
+    document.body.appendChild(el);
+  }
+
+  // DOM ready
+  window.addEventListener('DOMContentLoaded', () => {
+    const intro = document.getElementById('intro');
+    const mainPage = document.getElementById('mainPage');
+    const revealBtn = document.getElementById('revealBtn');
+    const msgBox = document.getElementById('typingMsg');
+
+    const message = `Hey muh luv 💞🥺
+
+13th March wasn’t just the day I called you mine... it was the day my world got brighter, and finally started making sense 💫💖
+
+Since then… every memory we’ve made — those endless late-night calls, your goofy lil laughs, the way your eyes light up when you smile — it’s been nothing but magic... The kinda magic that stays 💗✨️
+
+You’ve seen the worst of me, the unfiltered, raw parts… and still, you stayed. That means everything. ❤️‍🩹💫
+You’re my peace, my safe place, my sweet lil headache, and my whole heart... all wrapped up in one beautiful soul... 🥹🎀
+
+This lil message and this bouquet might not be much, but it’s packed with the love of someone who’d give you the damn moon if he could.. 💞💫
+
+I love you more than words could ever explain, Tia… and I promise, this is just the beginning of something unforgettable... ✨💑
+
+– YOUR LOVE, JJ ❤️
+
+I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
+
+    // Show main page
+    window.showMainPage = () => {
+      intro.classList.remove('active');
+      mainPage.classList.add('active');
+    };
+
+    // Typing effect
+    revealBtn.addEventListener('click', () => {
+      revealBtn.style.display = 'none';
+      let index = 0;
+      const speed = 40;
+      function typeChar() {
+        if (index < message.length) {
+          msgBox.innerHTML += message.charAt(index);
+          index++;
+          setTimeout(typeChar, speed);
+        }
+      }
+      typeChar();
+    });
+
+    // Countdown
+    function updateCountdown() {
+      const startDate = new Date("2025-03-13T00:00:00");
+      const now = new Date();
+      const diff = now - startDate;
+      if (diff < 0) {
+        document.getElementById('date-count').innerText = "Counting soon...";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById('date-count').innerText =
+        `${days} days, ${hours} hrs, ${minutes} min, ${seconds} sec of love 💖`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  });
+</script>
