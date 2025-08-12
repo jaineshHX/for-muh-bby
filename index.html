@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>For My Muh Luv - Special</title>
 <style>
   /* Common styles */
@@ -34,7 +34,9 @@
     background: pink;
     transform: rotate(45deg);
     animation: floatHearts linear infinite;
-    opacity: 0;
+    opacity: 0.8;
+    will-change: transform, opacity;
+    z-index: 1;
   }
   .heart::before, .heart::after {
     content: "";
@@ -167,6 +169,9 @@
     flex-shrink: 0;
     text-decoration: none;
     display: inline-block;
+    position: relative;
+    z-index: 10;
+    touch-action: manipulation; /* faster on mobile */
   }
   .start-btn:hover, .nav-btn:hover {
     transform: scale(1.05);
@@ -217,14 +222,15 @@
 
 <!-- Floating hearts -->
 <script>
-  for (let i = 0; i < 25; i++) {
+  // Create fewer hearts to reduce CPU usage
+  const heartCount = 10;
+  for (let i = 0; i < heartCount; i++) {
     const el = document.createElement('div');
     el.className = 'heart';
     el.style.left = Math.random() * 100 + 'vw';
     el.style.top = Math.random() * 100 + 'vh';
     el.style.animationDuration = (Math.random() * 10 + 5) + 's';
     el.style.animationDelay = Math.random() * 10 + 's';
-    el.style.opacity = 0.8;
     document.body.appendChild(el);
   }
 </script>
@@ -233,7 +239,7 @@
 <section id="intro" class="active">
   <h1>HAPPY GIRLFRIEND'S DAY BABE 💖</h1>
   <p>I thought... why not be a little unique for my princess 👑<br>Something made just for you and only you 💌</p>
-  <button class="start-btn" onclick="showSection('mainPage')">Start</button>
+  <button class="start-btn" id="startBtn">Start</button>
 </section>
 
 <!-- Main Section -->
@@ -243,9 +249,9 @@
     Together since: <span id="date-count"></span>
   </div>
   <div class="gallery">
-    <img src="1000037323.jpg" alt="Sweet moment" />
-    <img src="1000037344.jpg" alt="Cute us" />
-    <img src="1000037326.jpg" alt="Love vibes" />
+    <img src="1000037323.jpg" alt="Sweet moment" loading="lazy" />
+    <img src="1000037344.jpg" alt="Cute us" loading="lazy" />
+    <img src="1000037326.jpg" alt="Love vibes" loading="lazy" />
   </div>
   <button class="start-btn" id="revealBtn">Tap here sweetheart 💌</button>
   <div class="message-box" id="typingMsg"></div>
@@ -263,7 +269,7 @@
     <li style="color:#cc0066; font-size: 1.3rem; margin-top: 2rem;">I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖</li>
   </ul>
 
-  <button class="nav-btn" onclick="showSection('page3')">Click here for more luvv ❤️</button>
+  <button class="nav-btn" id="goPage3Btn">Click here for more luvv ❤️</button>
 </section>
 
 <!-- Page 3 Section -->
@@ -271,11 +277,11 @@
   <h1>Happy 5 Months, Muh Luv ❤️🔥</h1>
   <div id="message"></div>
   <div id="images">
-    <img src="IMG_20250810_212417_409.jpg" alt="Us 1" />
-    <img src="IMG_20250810_224401_652.jpg" alt="Us 2" />
-    <img src="IMG_20250809_190525_226.jpg" alt="Us 3" />
+    <img src="IMG_20250810_212417_409.jpg" alt="Us 1" loading="lazy" />
+    <img src="IMG_20250810_224401_652.jpg" alt="Us 2" loading="lazy" />
+    <img src="IMG_20250809_190525_226.jpg" alt="Us 3" loading="lazy" />
   </div>
-  <button class="nav-btn" onclick="showSection('mainPage')">⬅ Back to Main Page</button>
+  <button class="nav-btn" id="backToMainBtn">⬅ Back to Main Page</button>
   <button class="nav-btn" id="downloadBtn">Download This Page</button>
 </section>
 
@@ -288,8 +294,21 @@
     document.getElementById(id).classList.add('active');
   }
 
-  // Typed message on main page
-  const messageMain = `Hey muh luv 💞🥺
+  // Setup event listeners for buttons (better mobile compatibility)
+  document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('startBtn');
+    const revealBtn = document.getElementById('revealBtn');
+    const goPage3Btn = document.getElementById('goPage3Btn');
+    const backToMainBtn = document.getElementById('backToMainBtn');
+
+    startBtn.addEventListener('click', () => {
+      showSection('mainPage');
+    });
+
+    revealBtn.addEventListener('click', () => {
+      revealBtn.style.display = 'none';
+      const msgBox = document.getElementById('typingMsg');
+      const messageMain = `Hey muh luv 💞🥺
 
 13th March wasn’t just the day I called you mine... it was the day my world got brighter, and finally started making sense 💫💖
 
@@ -306,14 +325,9 @@ I love you more than words could ever explain, Tia… and I promise, this is jus
 
 I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const revealBtn = document.getElementById('revealBtn');
-    const msgBox = document.getElementById('typingMsg');
-    let index = 0;
-    const speed = 40;
+      let index = 0;
+      const speed = 40;
 
-    revealBtn.addEventListener('click', () => {
-      revealBtn.style.display = 'none';
       function typeChar() {
         if (index < messageMain.length) {
           msgBox.innerHTML += messageMain.charAt(index);
@@ -324,26 +338,39 @@ I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
       typeChar();
     });
 
-    // Countdown timer
-    function updateCountdown() {
-      const startDate = new Date("2025-03-13T00:00:00");
-      const now = new Date();
-      const diff = now - startDate;
-      if (diff < 0) {
-        document.getElementById('date-count').innerText = "Counting soon...";
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById('date-count').innerText =
-        `${days} days, ${hours} hrs, ${minutes} min, ${seconds} sec of love 💖`;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    goPage3Btn.addEventListener('click', () => {
+      showSection('page3');
+      revealPage3Message();
+    });
 
-    // Typed message on page 3 with bold at end
+    backToMainBtn.addEventListener('click', () => {
+      showSection('mainPage');
+    });
+  });
+
+  // Countdown timer
+  function updateCountdown() {
+    const startDate = new Date("2025-03-13T00:00:00");
+    const now = new Date();
+    const diff = now - startDate;
+    if (diff < 0) {
+      document.getElementById('date-count').innerText = "Counting soon...";
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    document.getElementById('date-count').innerText =
+      `${days} days, ${hours} hrs, ${minutes} min, ${seconds} sec of love 💖`;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Typed message on page 3
+  function revealPage3Message() {
+    const msgBox = document.getElementById('message');
+    const images = document.getElementById('images');
     const textPage3 = `Tia, Muh Luv… ❤️🔥
 
 Happy 5 months anniversary, my love! 🎉🎊 I can’t believe how fast time has flown, but every moment with you has been something special. Three years of knowing you, ten months of being best friends, and now five months of us being together  and honestly, every day feels better because you’re in my life. Being with you makes me feel like I’m winning at something I didn’t even know I was playing for. You’re my happiness, my calm, my best part. 🌟💫
@@ -356,16 +383,4 @@ But you know how parents see things their own way. When aunty said something, I 
 
 And even though I wasn’t scared to kiss you in front of everyone I respect you deeply, just like I respect my mum. So I held myself back and said goodbye with a warm hug and a soft kiss on your forehead. 🤗💞👑
 
-That night showed me more than ever how much I want you close, how much I want us to be honest and strong together. 🔒🔥
-
-You told me you didn’t drink or vape that night, but I know you did. And I’m not mad about the drinking or vaping itself. I just want to be honest with me because I trust you. I stayed chill because I wanted to enjoy the time with you, not fight. 😌✌️
-
-But I have to be real I don’t trust any guy around you. Not because I don’t trust you, but because the world isn’t safe. You told me a guy tried to touch you before and you pulled back. That scares me. What if next time you’re a little too drunk? What if I can’t protect you? 😟🖤🛡️
-
-I let you vape and drink around me and my family because I want to trust you. But going out, drinking with friends, and then not telling me everything that creates doubts in my head. Small lies like that make me wonder what else I don’t know. And that’s not a place I want us to go. 🤔💔
-
-I’m not perfect either. Sometimes I keep my feelings inside or get quiet when I’m scared. But every bit of that comes from loving you so much it’s almost too much sometimes. I want to keep us safe. 🖤🙏
-
-Tia, I appreciate you so much. I appreciate the smiles, the laughs, the moments we share. You mean the world to me.
-
-<span style="font-weight:bold;">I love you Tia and I always will 
+That night showed me more than ever
