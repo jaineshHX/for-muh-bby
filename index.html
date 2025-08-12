@@ -1,234 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For My Muh Luv - Special</title>
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    body {
-      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
-      background-size: 800% 800%;
-      animation: gradientBG 15s ease infinite;
-      color: #333;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-    @keyframes gradientBG {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-    @keyframes floatHearts {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
-    }
-    .heart, .flower {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: pink;
-      transform: rotate(45deg);
-      animation: floatHearts linear infinite;
-      opacity: 0;
-    }
-    .flower {
-      background-image: url('https://i.ibb.co/YRPKr4s/flower.png');
-      background-size: cover;
-      width: 50px;
-      height: 50px;
-      animation-duration: 15s !important;
-    }
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: pink;
-      border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: -10px; top: 0; }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    .intro, .main {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      min-height: 100vh;
-      padding: 2rem;
-    }
-    .intro.active, .main.active {
-      display: flex;
-      animation: fadeIn 2s ease-in-out;
-      flex-wrap: wrap;
-    }
-    h1, h2 {
-      color: #fff;
-      text-shadow: 0 0 10px #cc0066;
-    }
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-    p, li {
-      color: #fff0f5;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      max-width: 600px;
-      margin: 0.5rem auto;
-    }
-    ul.timeline {
-      list-style: none;
-      text-align: left;
-      max-width: 700px;
-      margin: 2rem auto 3rem auto;
-      padding-left: 1rem;
-      color: #cc0066;
-      font-weight: 600;
-      border-left: 3px solid #cc0066;
-    }
-    ul.timeline li {
-      margin-bottom: 1.2rem;
-      position: relative;
-      padding-left: 1rem;
-    }
-    ul.timeline li::before {
-      content: '💖';
-      position: absolute;
-      left: -2.3rem;
-      top: 0;
-      font-size: 1.3rem;
-      color: #ff4d94;
-    }
-    .start-btn {
-      margin-top: 1.5rem;
-      padding: 0.8rem 2rem;
-      font-size: 1.2rem;
-      background: #cc0066;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      flex-shrink: 0;
-    }
-    .start-btn:hover {
-      transform: scale(1.05);
-    }
-    .message-box {
-      background: #ffe6f2;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
-      margin: 2rem auto 3rem auto;
-      color: #800040;
-      text-shadow: 0 0 3px #fff;
-      max-width: 700px;
-      white-space: pre-wrap;
-      text-align: left;
-      line-height: 1.6;
-      min-height: 120px;
-    }
-    #typingMsg { white-space: pre-wrap; }
-    .countdown {
-      font-size: 1.3rem;
-      margin: 1rem 0 2rem 0;
-      color: #cc0066;
-      font-weight: 700;
-      width: 100%;
-      max-width: 700px;
-    }
-    .gallery {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For My Muh Luv - Special</title>
+<style>
+  /* Common styles */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  body {
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+    background-size: 800% 800%;
+    animation: gradientBG 15s ease infinite;
+    color: #333;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+  @keyframes floatHearts {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+  }
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: floatHearts linear infinite;
+    opacity: 0;
+  }
+  .heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+  }
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: -10px; top: 0; }
+
+  /* Sections setup */
+  section {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 2rem;
+    color: white;
+  }
+  section.active {
+    display: flex;
+    animation: fadeIn 2s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  /* Intro */
+  #intro h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-shadow: 0 0 10px #cc0066;
+  }
+  #intro p {
+    color: #fff0f5;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+  }
+  /* Main page */
+  #mainPage h2 {
+    color: #fff;
+    text-shadow: 0 0 10px #cc0066;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  .countdown {
+    font-size: 1.3rem;
+    margin: 1rem 0 2rem 0;
+    color: #cc0066;
+    font-weight: 700;
+    width: 100%;
+    max-width: 700px;
+  }
+  .gallery {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+  }
+  .gallery img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    object-fit: cover;
+  }
+  @media (max-width: 500px) {
     .gallery img {
-      width: 200px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      object-fit: cover;
+      width: 100%;
     }
-    @media (max-width: 500px) {
-      .gallery img {
-        width: 100%;
-      }
-    }
-  </style>
+  }
+  ul.timeline {
+    list-style: none;
+    text-align: left;
+    max-width: 700px;
+    margin: 2rem auto 3rem auto;
+    padding-left: 1rem;
+    color: #cc0066;
+    font-weight: 600;
+    border-left: 3px solid #cc0066;
+  }
+  ul.timeline li {
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  ul.timeline li::before {
+    content: '💖';
+    position: absolute;
+    left: -2.3rem;
+    top: 0;
+    font-size: 1.3rem;
+    color: #ff4d94;
+  }
+  .message-box {
+    background: #ffe6f2;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+    margin: 2rem auto 3rem auto;
+    color: #800040;
+    text-shadow: 0 0 3px #fff;
+    max-width: 700px;
+    white-space: pre-wrap;
+    text-align: left;
+    line-height: 1.6;
+    min-height: 120px;
+  }
+  /* Buttons */
+  .start-btn, .nav-btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    background: #cc0066;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    flex-shrink: 0;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .start-btn:hover, .nav-btn:hover {
+    transform: scale(1.05);
+    background-color: #ff4d94;
+  }
+
+  /* Third page styles */
+  #page3 h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #cc0066;
+  }
+  #page3 #message {
+    white-space: pre-wrap;
+    font-size: 1.2rem;
+    max-width: 800px;
+    min-height: 400px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(204, 0, 102, 0.5);
+    margin: 0 auto;
+    text-align: left;
+    color: white;
+  }
+  #page3 #images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    flex-wrap: wrap;
+  }
+  #page3 #images.visible {
+    opacity: 1;
+  }
+  #page3 #images img {
+    max-width: 220px;
+    max-height: 330px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 65, 108, 0.7);
+    object-fit: cover;
+  }
+</style>
 </head>
 <body>
-  <div class="intro active" id="intro">
-    <h1>HAPPY GIRLFRIEND'S DAY BABE 💖</h1>
-    <p>I thought... why not be a little unique for my princess 👑<br>Something made just for you and only you 💌</p>
-    <button class="start-btn" onclick="showMainPage()">Start</button>
-  </div>
 
-  <div class="main" id="mainPage">
-    <h2>To: Tia (Muh Luvv) 💞🥺</h2>
-    <div class="countdown" id="countdown">
-      Together since: <span id="date-count"></span>
-    </div>
-    <div class="gallery">
-      <img src="1000037323.jpg" alt="Sweet moment" />
-      <img src="1000037344.jpg" alt="Cute us" />
-      <img src="1000037326.jpg" alt="Love vibes" />
-    </div>
-    <button class="start-btn" id="revealBtn">Tap here sweetheart 💌</button>
-    <div class="message-box" id="typingMsg"></div>
-    <h2>Our Love Timeline 💖</h2>
-    <ul class="timeline">
-      <li><strong>First ever call:</strong> The day before Christmas we were both drunk; I was in the west.</li>
-      <li>Seeing you in person for the first time near canteen</li>
-      <li>We've never genuinely fought before because we end up making fun of the situation.</li>
-      <li>Nearly <strong>5 months</strong> of our relationship, and <strong>9 months</strong> of being best friends.</li>
-      <li>Our month anniversary is on the <strong>13th</strong>.</li>
-      <li>And yeah we wouldn’t be together if the first <em>'I love you'</em> wasn’t from your side on 13th March.</li>
-      <li>Me confessing to your mum about our relationship on 28th March.</li>
-      <li>First kiss on 21st April and not even seeing the movie 😭.</li>
-      <li><strong>Tia, every moment with you has stayed with me like a warm memory I never want to let go of. I just hope this all leads to something truly beautiful.</strong></li>
-      <li style="color:#cc0066; font-size: 1.3rem; margin-top: 2rem;">I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖</li>
-    </ul>
-  </div>
-
- <script>
-  // Create only floating hearts (removed flowers)
+<!-- Floating hearts -->
+<script>
   for (let i = 0; i < 25; i++) {
     const el = document.createElement('div');
     el.className = 'heart';
     el.style.left = Math.random() * 100 + 'vw';
     el.style.top = Math.random() * 100 + 'vh';
-    el.style.animationDuration = Math.random() * 10 + 5 + 's';
+    el.style.animationDuration = (Math.random() * 10 + 5) + 's';
     el.style.animationDelay = Math.random() * 10 + 's';
     el.style.opacity = 0.8;
     document.body.appendChild(el);
   }
+</script>
 
-  // DOM ready
-  window.addEventListener('DOMContentLoaded', () => {
-    const intro = document.getElementById('intro');
-    const mainPage = document.getElementById('mainPage');
-    const revealBtn = document.getElementById('revealBtn');
-    const msgBox = document.getElementById('typingMsg');
+<!-- Intro Section -->
+<section id="intro" class="active">
+  <h1>HAPPY GIRLFRIEND'S DAY BABE 💖</h1>
+  <p>I thought... why not be a little unique for my princess 👑<br>Something made just for you and only you 💌</p>
+  <button class="start-btn" onclick="showSection('mainPage')">Start</button>
+</section>
 
-    const message = `Hey muh luv 💞🥺
+<!-- Main Section -->
+<section id="mainPage">
+  <h2>To: Tia (Muh Luvv) 💞🥺</h2>
+  <div class="countdown" id="countdown">
+    Together since: <span id="date-count"></span>
+  </div>
+  <div class="gallery">
+    <img src="1000037323.jpg" alt="Sweet moment" />
+    <img src="1000037344.jpg" alt="Cute us" />
+    <img src="1000037326.jpg" alt="Love vibes" />
+  </div>
+  <button class="start-btn" id="revealBtn">Tap here sweetheart 💌</button>
+  <div class="message-box" id="typingMsg"></div>
+  <h2>Our Love Timeline 💖</h2>
+  <ul class="timeline">
+    <li><strong>First ever call:</strong> The day before Christmas we were both drunk; I was in the west.</li>
+    <li>Seeing you in person for the first time near canteen</li>
+    <li>We've never genuinely fought before because we end up making fun of the situation.</li>
+    <li>Nearly <strong>5 months</strong> of our relationship, and <strong>9 months</strong> of being best friends.</li>
+    <li>Our month anniversary is on the <strong>13th</strong>.</li>
+    <li>And yeah we wouldn’t be together if the first <em>'I love you'</em> wasn’t from your side on 13th March.</li>
+    <li>Me confessing to your mum about our relationship on 28th March.</li>
+    <li>First kiss on 21st April and not even seeing the movie 😭.</li>
+    <li><strong>Tia, every moment with you has stayed with me like a warm memory I never want to let go of. I just hope this all leads to something truly beautiful.</strong></li>
+    <li style="color:#cc0066; font-size: 1.3rem; margin-top: 2rem;">I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖</li>
+  </ul>
+
+  <button class="nav-btn" onclick="showSection('page3')">Click here for more luvv ❤️</button>
+</section>
+
+<!-- Page 3 Section -->
+<section id="page3">
+  <h1>Happy 5 Months, Muh Luv ❤️🔥</h1>
+  <div id="message"></div>
+  <div id="images">
+    <img src="IMG_20250810_212417_409.jpg" alt="Us 1" />
+    <img src="IMG_20250810_224401_652.jpg" alt="Us 2" />
+    <img src="IMG_20250809_190525_226.jpg" alt="Us 3" />
+  </div>
+  <button class="nav-btn" onclick="showSection('mainPage')">⬅ Back to Main Page</button>
+  <button class="nav-btn" id="downloadBtn">Download This Page</button>
+</section>
+
+<script>
+  // Section navigation
+  function showSection(id) {
+    document.querySelectorAll('section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Typed message on main page
+  const messageMain = `Hey muh luv 💞🥺
 
 13th March wasn’t just the day I called you mine... it was the day my world got brighter, and finally started making sense 💫💖
 
@@ -245,20 +306,17 @@ I love you more than words could ever explain, Tia… and I promise, this is jus
 
 I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
 
-    // Show main page
-    window.showMainPage = () => {
-      intro.classList.remove('active');
-      mainPage.classList.add('active');
-    };
+  window.addEventListener('DOMContentLoaded', () => {
+    const revealBtn = document.getElementById('revealBtn');
+    const msgBox = document.getElementById('typingMsg');
+    let index = 0;
+    const speed = 40;
 
-    // Typing effect
     revealBtn.addEventListener('click', () => {
       revealBtn.style.display = 'none';
-      let index = 0;
-      const speed = 40;
       function typeChar() {
-        if (index < message.length) {
-          msgBox.innerHTML += message.charAt(index);
+        if (index < messageMain.length) {
+          msgBox.innerHTML += messageMain.charAt(index);
           index++;
           setTimeout(typeChar, speed);
         }
@@ -266,7 +324,7 @@ I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
       typeChar();
     });
 
-    // Countdown
+    // Countdown timer
     function updateCountdown() {
       const startDate = new Date("2025-03-13T00:00:00");
       const now = new Date();
@@ -282,8 +340,32 @@ I LOVE YOU TIA AND THANKS FOR EVERYTHING 💖`;
       document.getElementById('date-count').innerText =
         `${days} days, ${hours} hrs, ${minutes} min, ${seconds} sec of love 💖`;
     }
-
     setInterval(updateCountdown, 1000);
     updateCountdown();
-  });
-</script>
+
+    // Typed message on page 3 with bold at end
+    const textPage3 = `Tia, Muh Luv… ❤️🔥
+
+Happy 5 months anniversary, my love! 🎉🎊 I can’t believe how fast time has flown, but every moment with you has been something special. Three years of knowing you, ten months of being best friends, and now five months of us being together  and honestly, every day feels better because you’re in my life. Being with you makes me feel like I’m winning at something I didn’t even know I was playing for. You’re my happiness, my calm, my best part. 🌟💫
+
+You need to know just how important you are to me  more than anyone or anything I’ve ever known. Loving you isn’t just something I say; it’s everything I feel every moment I’m awake. You’re the first thing I think about in the morning and the last before I sleep. You’ve changed me in ways I never thought possible. My heart beats stronger because of you, and I’m ready to give you all of me my time, my trust, my soul. I love you more than words can ever show. 💖🔥💞
+
+Last Saturday, I could tell your mood was off. You weren’t yourself, and that hit me. So I took a risk I kissed you and held you tight in my arms. I wanted you to feel better, to know I was there for you no matter what. That kiss, even if it was just a small moment, meant everything to me. It made me crave your lips more, your eyes, your whole presence. I just needed you close. 🥺💋✨
+
+But you know how parents see things their own way. When aunty said something, I had to stand up for you, my girl, and explain things from our side. I made sure to support you in front of aunty because you deserve that. Then I took you aside, away from everyone, to talk quietly so you’d understand why I was worried and why I care so much. I wanted you to know it wasn’t about control but about love and protection. 🤝❤️🛡️
+
+And even though I wasn’t scared to kiss you in front of everyone I respect you deeply, just like I respect my mum. So I held myself back and said goodbye with a warm hug and a soft kiss on your forehead. 🤗💞👑
+
+That night showed me more than ever how much I want you close, how much I want us to be honest and strong together. 🔒🔥
+
+You told me you didn’t drink or vape that night, but I know you did. And I’m not mad about the drinking or vaping itself. I just want to be honest with me because I trust you. I stayed chill because I wanted to enjoy the time with you, not fight. 😌✌️
+
+But I have to be real I don’t trust any guy around you. Not because I don’t trust you, but because the world isn’t safe. You told me a guy tried to touch you before and you pulled back. That scares me. What if next time you’re a little too drunk? What if I can’t protect you? 😟🖤🛡️
+
+I let you vape and drink around me and my family because I want to trust you. But going out, drinking with friends, and then not telling me everything that creates doubts in my head. Small lies like that make me wonder what else I don’t know. And that’s not a place I want us to go. 🤔💔
+
+I’m not perfect either. Sometimes I keep my feelings inside or get quiet when I’m scared. But every bit of that comes from loving you so much it’s almost too much sometimes. I want to keep us safe. 🖤🙏
+
+Tia, I appreciate you so much. I appreciate the smiles, the laughs, the moments we share. You mean the world to me.
+
+<span style="font-weight:bold;">I love you Tia and I always will
